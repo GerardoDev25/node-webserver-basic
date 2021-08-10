@@ -1,18 +1,19 @@
 const express = require("express");
 const app = express();
 
-const port = 8080
+const port = 8080;
 
-app.get("/", (req, res) => {
-   res.send("hola mundo");
-});
+// ? servir contenido estatico
+app.use(express.static("public"));
 
 app.get("/hola-mundo", (req, res) => {
    res.send("hola mundo es otra ruta");
 });
 
 app.get("*", (req, res) => {
-   res.send("404 page not found");
+   // res.send("404 page not found");
+   res.sendFile(__dirname + "/public/404.html");
+   console.log(__dirname);
 });
 
 app.listen(port, () => {
