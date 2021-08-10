@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/GerardoDev25/node-webserver-basic/issues"
   },
-  "homepage": "https://github.com/GerardoDev25/node-webserver-basic#readme"
+  "homepage": "https://github.com/GerardoDev25/node-webserver-basic#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
