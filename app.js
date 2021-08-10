@@ -1,21 +1,46 @@
-const http = require("http");
+const hbs = require("hbs");
+const express = require("express");
 
-http
-   .createServer((req, res) => {
-    //    res.writeHead(200, { "Content-Type": "text/plane" });
-      //   res.writeHead(200, { "Content-Type": "application/json" });
-      res.setHeader(
-         "Content-disposition",
-         "attachment; filename=lista.csv"
-      );
-      res.writeHead(200, { "Content-Type": "application/csv" });
+const app = express();
+const port = 8080;
 
-      res.write("id, nombre\n");
-      res.write("1, Gerardo\n");
-      res.write("2, Maria\n");
-      res.write("3, juan\n");
-      res.write("4, pedro\n");
-      res.end();
-   })
-   .listen(8080);
-console.log("liste to port, 8080");
+// ? handleBars
+app.set("view engine", "hbs");
+hbs.registerPartials(__dirname + "/views/partials");
+
+// ? servir contenido estatico
+app.use(express.static("public"));
+
+app.get("/", (req, res) => {
+   res.render("home", {
+      name: "Gerardo Miranda",
+      title: "Curso de node",
+   });
+});
+
+app.get("/elements", (req, res) => {
+   res.render("partials/elements", {
+      name: "Gerardo Miranda",
+      title: "Curso de node",
+   });
+
+   // res.sendFile(__dirname + "/public/elements.html");
+});
+
+app.get("/generic", (req, res) => {
+   res.render("partials/generic", {
+      name: "Gerardo Miranda",
+      title: "Curso de node",
+   });
+   // res.sendFile(__dirname + "/public/generic.html");
+});
+
+app.get("*", (req, res) => {
+   res.sendFile(__dirname + "/public/404.html");
+});
+
+app.listen(port, () => {
+   console.log(
+      `Example app listening at http://localhost:${port}`
+   );
+});
